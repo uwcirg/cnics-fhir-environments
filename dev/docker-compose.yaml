@@ -18,5 +18,7 @@ services:
       - source: postgres-data
         target: /var/lib/postgresql/data
         type: volume
+    ports:
+      - "127.0.0.1:${PSQL_EXTERNAL_PORT:-15432}:5432"
 volumes:
     postgres-data: {}
