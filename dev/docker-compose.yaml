@@ -7,7 +7,9 @@ services:
     depends_on:
       - db
     ports:
-      - "127.0.0.1:${EXTERNAL_PORT:-8080}:8080"
+      - "127.0.0.1:${EXTERNAL_PORT:-8090}:8080"
+    volumes:
+      - ./server.xml:/usr/local/tomcat/conf/server.xml
 
   db:
     image: postgres:${POSTGRES_VERSION:-12}
