@@ -3,6 +3,10 @@ version: "3.4"
 services:
   hapi:
     image: "hapiproject/hapi:${HAPI_IMAGE_TAG:-v5.5.1}"
+    environment:
+      JAVA_OPTIONS: "-Dhapi.properties=/opt/hapi.properties"
+    volumes:
+      - "./config/hapi/hapi.properties:/opt/hapi.proerties:ro"
     depends_on:
       - db
     ports:
