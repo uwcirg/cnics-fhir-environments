@@ -4,7 +4,7 @@ services:
   hapi:
     image: "hapiproject/hapi:${HAPI_IMAGE_TAG:-v5.5.1}"
     environment:
-      JAVA_OPTIONS: "--spring.config.location=file:///opt/hapi.properties"
+      JAVA_OPTIONS: "--spring.config.location=file:///opt/application.yaml"
     volumes:
       - "./config/hapi/application.yaml:/opt/application.yaml:ro"
     depends_on:
