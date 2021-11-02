@@ -1,7 +1,7 @@
 ---
 version: "3.4"
 services:
-  hapi:
+  fhir:
     image: "hapiproject/hapi:${HAPI_IMAGE_TAG:-v5.5.1}"
     depends_on:
       - db
