@@ -2,7 +2,7 @@
 version: "3.4"
 services:
   fhir:
-    image: "hapiproject/hapi:${HAPI_IMAGE_TAG:-v5.5.1}"
+    image: "hapiproject/hapi:${FHIR_IMAGE_TAG:-v5.5.1}"
     environment:
       SPRING_CONFIG_LOCATION: 'file:///opt/application.yaml'
     volumes:
@@ -13,7 +13,7 @@ services:
       - "127.0.0.1:${EXTERNAL_PORT:-8090}:8080"
 
   db:
-    image: postgres:${POSTGRES_VERSION:-12}
+    image: postgres:${POSTGRES_IMAGE_TAG:-12}
     environment:
       POSTGRES_DB: hapifhir
       POSTGRES_USER: hapifhir
