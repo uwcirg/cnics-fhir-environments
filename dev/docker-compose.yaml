@@ -17,6 +17,8 @@ services:
       - db
     ports:
       - "127.0.0.1:${EXTERNAL_PORT:-8090}:8080"
+    networks:
+      - internal
 
   db:
     image: postgres:${POSTGRES_IMAGE_TAG:-12}
@@ -32,6 +34,8 @@ services:
       - "127.0.0.1:${PSQL_EXTERNAL_PORT:-15432}:5432"
     expose:
       - "5432"
+    networks:
+      - internal
 
   carl:
     image: ghcr.io/uwcirg/carl:${CARL_IMAGE_TAG:-latest}
@@ -39,6 +43,12 @@ services:
       FHIR_SERVER_URL: "http://hapi:8080/hapi-fhir-jpaserver/fhir"
     ports:
       - "127.0.0.1:${EXTERNAL_PORT:-5000}:5000"
+    networks:
+      - internal
+
+networks:
+  # internal network for backing services
+  internal:
 
 volumes:
     postgres-data: {}
