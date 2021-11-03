@@ -1,19 +1,27 @@
 ---
 version: "3.4"
 services:
-  hapi:
-    image: "hapiproject/hapi:${HAPI_IMAGE_TAG:-v5.5.1}"
+  fhir:
+    image: hapiproject/hapi:${FHIR_IMAGE_TAG:-v5.5.1}
     environment:
-      JAVA_OPTIONS: "--spring.config.location=file:///opt/application.yaml"
+      SPRING_CONFIG_LOCATION: file:///opt/application.yaml
+      spring.datasource.url: jdbc:postgresql://db:5432/hapifhir
+      spring.datasource.username: hapifhir
+      spring.datasource.password: hapifhir
+      spring.datasource.driverClassName: org.postgresql.Driver
+      spring.jpa.hibernate.dialect: org.hibernate.dialect.PostgreSQL94Dialect
+
     volumes:
       - "./config/hapi/application.yaml:/opt/application.yaml:ro"
     depends_on:
       - db
     ports:
       - "127.0.0.1:${EXTERNAL_PORT:-8090}:8080"
+    networks:
+      - internal
 
   db:
-    image: postgres:${POSTGRES_VERSION:-12}
+    image: postgres:${POSTGRES_IMAGE_TAG:-12}
     environment:
       POSTGRES_DB: hapifhir
       POSTGRES_USER: hapifhir
@@ -26,6 +34,8 @@ services:
       - "127.0.0.1:${PSQL_EXTERNAL_PORT:-15432}:5432"
     expose:
       - "5432"
+    networks:
+      - internal
 
   carl:
     image: ghcr.io/uwcirg/carl:${CARL_IMAGE_TAG:-latest}
@@ -33,6 +43,12 @@ services:
       FHIR_SERVER_URL: http://hapi:8080/fhir
     ports:
       - "127.0.0.1:${EXTERNAL_PORT:-5000}:5000"
+    networks:
+      - internal
+
+networks:
+  # internal network for backing services
+  internal:
 
 volumes:
     postgres-data: {}
