@@ -5,11 +5,11 @@ Sets up a copy of CNICS FHIR environments, for development
 
 ## Setup
 
-Copy the .env file default:
+Copy the `.env` file default:
 
     cp default.env .env
 
-Modify the .env file as necessary. Lines that are not commented-out are required, commented lines are optional.
+Modify the `.env` file as necessary. Lines that are not commented-out are required, commented lines are optional.
 
 ## Deploy
 
