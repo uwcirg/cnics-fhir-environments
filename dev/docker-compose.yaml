@@ -46,6 +46,15 @@ services:
     networks:
       - internal
 
+  hydrant:
+    image: ghcr.io/uwcirg/hydrant:${HYDRANT_IMAGE_TAG:-develop}
+    environment:
+      PREFERRED_URL_SCHEME: https
+      FHIR_SERVER_URL: http://fhir:8080/fhir
+    networks:
+      - internal
+
+
 networks:
   # internal network for backing services
   internal:
