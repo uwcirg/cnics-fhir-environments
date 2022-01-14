@@ -3,6 +3,14 @@ version: "3.4"
 services:
   fhir:
     restart: unless-stopped
+    healthcheck:
+      test: busybox wget --spider --quiet 'http://localhost:8080/fhir/metadata'
+      start_period: 2m
+      interval: 5m
+      timeout: 1m
+      retries: 5
+    volumes:
+      - /usr/bin/busybox:/usr/bin/busybox:ro
   db:
     restart: unless-stopped
     healthcheck:
