@@ -10,6 +10,8 @@ services:
       timeout: 1m
       retries: 5
     volumes:
+      # docker image does not contain any appropriate HTTP client
+      # use busybox from host
       - /usr/bin/busybox:/usr/bin/busybox:ro
   db:
     restart: unless-stopped
