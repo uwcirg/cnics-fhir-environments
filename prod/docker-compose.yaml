@@ -5,3 +5,7 @@ services:
     restart: unless-stopped
   db:
     restart: unless-stopped
+    healthcheck:
+      test: pg_isready
+      start_period: 2m
+      timeout: 5s
