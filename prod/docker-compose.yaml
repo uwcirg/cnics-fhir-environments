@@ -1,0 +1,9 @@
+---
+version: "3.4"
+services:
+  fhir:
+    restart: unless-stopped
+  db:
+    restart: unless-stopped
+  carl:
+    restart: unless-stopped
