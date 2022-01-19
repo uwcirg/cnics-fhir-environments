@@ -1,0 +1,20 @@
+---
+version: "3.4"
+services:
+  fhir:
+    restart: unless-stopped
+    healthcheck:
+      test:
+        wget --spider --quiet
+          http://localhost:8080/fhir/metadata
+      start_period: 2m
+    volumes:
+      # docker image does not contain any appropriate HTTP client
+      # use busybox from host as `wget`
+      - /usr/bin/busybox:/usr/bin/wget:ro
+  db:
+    restart: unless-stopped
+    healthcheck:
+      test: pg_isready
+      start_period: 2m
+      timeout: 5s

@@ -3,4 +3,4 @@ Configuration for CNICS services. Includes components for transforming CNICS rel
 
 
 ## Setup
-Clone this repo to your desired location and follow Setup steps in [`dev` directory](./dev/README.md), for deploying a dev environment
+Clone this repo to your desired location and follow Setup steps in [`dev`](./dev/README.md), to setup a development deploy, or [`prod`](./prod/README.md) for a production deploy.
